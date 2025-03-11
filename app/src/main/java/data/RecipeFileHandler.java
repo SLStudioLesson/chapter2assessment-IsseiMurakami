@@ -1,6 +1,10 @@
 package data;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 
 public class RecipeFileHandler {
@@ -16,18 +20,25 @@ public class RecipeFileHandler {
 
     /**
      * 設問1: 一覧表示機能
-     * recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br> 
+     * recipes.txtからレシピデータを読み込み、それをリスト形式で返します。 <br>
      * IOExceptionが発生したときは<i>Error reading file: 例外のメッセージ</i>とコンソールに表示します。
      *
      * @return レシピデータ
      */
-    public ArrayList<String> readRecipes() {
-        // try {
+    public static ArrayList<String> readRecipes() {
+        ArrayList<String> recipes = new ArrayList<>();
+        try {
+            BufferedReader reader = new BufferedReader(new FileReader("recipes.txt"));
+            String line;
 
-        // } catch (IOException e) {
-        //     System.out.println("Error reading file:" + e.getMessage());
-        // }
-        return null;
+            while ((line = reader.readLine()) != null) {
+                recipes.add(line);
+            }
+
+        } catch (IOException e) {
+            System.out.println("Error reading file:" + e.getMessage());
+        }
+        return recipes;
     }
 
     /**
@@ -35,15 +46,15 @@ public class RecipeFileHandler {
      * 新しいレシピをrecipes.txtに追加します。<br>
      * レシピ名と材料はカンマ区切りで1行としてファイルに書き込まれます。
      *
-     * @param recipeName レシピ名
+     * @param recipeName  レシピ名
      * @param ingredients 材料名
      */
-     // 
-    public void addRecipe(String recipeName, String ingredients) {
-        // try {
-
-        // } catch (IOException e) {
-
-        // }
+    //
+    public static void addRecipe(String recipeName, String ingredients) {
+        try (PrintWriter writer = new PrintWriter(new FileWriter("recipes.txt", true))) {
+            writer.println(recipeName + "," + ingredients);
+        } catch (IOException e) {
+            System.out.println("Error reading file: 例外のメッセージ" + e.getMessage());
+        }
     }
 }
