@@ -104,6 +104,6 @@ public class RecipeUI {
 
         fileHandler.addRecipe(recipeName, ingredients);
 
-        System.out.println("Recipe added successfully");
+        System.out.println("Recipe added successfully.");
     }
 }
